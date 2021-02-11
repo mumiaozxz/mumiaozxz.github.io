@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Z/images/blog.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Z/images/blog.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #fcfdfb; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #000000, 0 0 5px #000000; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #878787;    /*上边框颜色*/
+        border-left-color: #878787;    /*左边框颜色*/
+    }
+</style>
+
+  <meta name="description" content="Arch Linux 安装过程 Arch Linux 简单介绍（官网、Wiki等） Arch Linux 安装过程（Vmware为例） 安装过程中的一些总结">
+<meta name="keywords" content="Arch_Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install Arch Linux">
+<meta property="og:url" content="http://mumiaozxz.github.io/2021-02-12/install-arch-linux/index.html">
+<meta property="og:site_name" content="IeMLvYuooom">
+<meta property="og:description" content="Arch Linux 安装过程 Arch Linux 简单介绍（官网、Wiki等） Arch Linux 安装过程（Vmware为例） 安装过程中的一些总结">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-02-11T17:02:33.365Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Install Arch Linux">
+<meta name="twitter:description" content="Arch Linux 安装过程 Arch Linux 简单介绍（官网、Wiki等） Arch Linux 安装过程（Vmware为例） 安装过程中的一些总结">
+  <link rel="canonical" href="http://mumiaozxz.github.io/2021-02-12/install-arch-linux/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Install Arch Linux | IeMLvYuooom</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IeMLvYuooom</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">慕渺的记事本</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-moods">
+      
+    
+
+    <a href="/moods/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Moods</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://mumiaozxz.github.io/2021-02-12/install-arch-linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IeMLvYuooom">
+      <meta itemprop="description" content="宁无慈悲也无情">
+      <meta itemprop="image" content="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/wallhaven-ox7357.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IeMLvYuooom">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Install Arch Linux
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2021-02-12 00:36:22" itemprop="dateCreated datePublished" datetime="2021-02-12T00:36:22Z">2021-02-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-11 17:02:33" itemprop="dateModified" datetime="2021-02-11T17:02:33Z">2021-02-11</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/实验笔记/" itemprop="url" rel="index"><span itemprop="name">实验笔记</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux基础/" itemprop="url" rel="index"><span itemprop="name">Linux基础</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>8.6k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>8 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Arch-Linux-安装过程"><a href="#Arch-Linux-安装过程" class="headerlink" title="Arch Linux 安装过程"></a>Arch Linux 安装过程</h1><ol>
+<li>Arch Linux 简单介绍（官网、Wiki等）</li>
+<li>Arch Linux 安装过程（Vmware为例）</li>
+<li>安装过程中的一些总结</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="一、Arch-Linux-简单介绍"><a href="#一、Arch-Linux-简单介绍" class="headerlink" title="一、Arch Linux 简单介绍"></a>一、Arch Linux 简单介绍</h2><blockquote>
+<p>Arch Linux 是一款基于 x86-64 架构的 Linux发行版 。<br>系统主要由自由和开源软件组成，支持社区参与。系统设计以 KISS原则（保持简单和愚蠢）为总体指导原则，注重代码正确、优雅和极简主义，期待用户愿意去理解系统的运作。Arch Linux 采用pacman作为默认的软件包管理器。Arch Linux 采用滚动发行模式。Arch Linux 以社区 Wiki 的形式提供文档，称为 ArchWiki。</p>
+</blockquote>
+<p>Arch Linux<a href="https://www.archlinux.org/" target="_blank" rel="noopener">官方网站</a> </p>
+<p>Arch Linux <a href="https://wiki.archlinux.org/" target="_blank" rel="noopener">Wiki</a></p>
+<p>Arch Linux<a href="https://www.archlinuxcn.org/" target="_blank" rel="noopener">中文社区</a></p>
+<h2 id="二、Arch-Linux-安装过程"><a href="#二、Arch-Linux-安装过程" class="headerlink" title="二、Arch Linux 安装过程"></a>二、Arch Linux 安装过程</h2><p>Arch Linux 并不是适合Linux新手的发行版，相较于其他发行版有图形界面引导的流程化的安装过程，Arch Linux安装过程对新手相对不友好。但通过这个安装过程可以提升对Linux的了解与掌握程度。</p>
+<p>安装目标是装好最简单的一个带有桌面的 Arch Linux(以Vmware为例).</p>
+<h3 id="2-1-安装前的准备"><a href="#2-1-安装前的准备" class="headerlink" title="2.1 安装前的准备"></a>2.1 安装前的准备</h3><h4 id="2-1-1-下载镜像："><a href="#2-1-1-下载镜像：" class="headerlink" title="2.1.1 下载镜像："></a>2.1.1 下载镜像：</h4><p>官方<a href="https://www.archlinux.org/download/" target="_blank" rel="noopener">下载地址</a></p>
+<p>国内镜像地址：<a href="https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/" target="_blank" rel="noopener">清华大学开源软件镜像站</a>、<a href="http://mirrors.163.com/archlinux/iso/" target="_blank" rel="noopener">网易开源镜像站</a></p>
+<p>这里下载的是archlinux-2020.09.01-x86_64.iso</p>
+<p>校验文件完整性：</p>
+<p>官网给出的MD5和SHA1：</p>
+<ul>
+<li><strong>MD5：</strong> ebcdb2223a77f098af3923fe1fa180aa</li>
+<li><strong>SHA1：</strong> 95ebacd83098b190e8f30cc28d8c57af0d0088a0</li>
+</ul>
+<p>Windows下查看文件MD5和SHA1：</p>
+<p>CertUtil -hashfile 文件名 [ Hash算法 ] （默认为SHA1，要大写）</p>
+<p><img alt="Hash" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/Hash.png"></p>
+<p>完整性检验完成。</p>
+<h4 id="2-1-2-创建虚拟机："><a href="#2-1-2-创建虚拟机：" class="headerlink" title="2.1.2 创建虚拟机："></a>2.1.2 创建虚拟机：</h4><p>使用Vmware workstation虚拟机来安装Arch Linux，首先新建一个虚拟机，为Arch Linux了分配了1G内存和10G的硬盘，配置允许的话可以使用更大的内存和硬盘空间。</p>
+<p><img alt="00" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/00.png"></p>
+<img alt="01" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/01.png">
+
+
+
+<p><img alt="02" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/02.png"></p>
+<p>VMWare在新建虚拟机选择系统时是没有Arch Linux的选项的，这里我选择的是“其他Linux 5.x或更高版本内核 64位”。</p>
+<p><img alt="03" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/03.png"></p>
+<p><img alt="04" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/04.png"></p>
+<p><img alt="05" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/05.png"></p>
+<p>在虚拟机中设置下载好的ISO映像文件的路径，即”使用 ISO 映像文件（M）“—-&gt;浏览选择之前下载好的镜像文件。</p>
+<p><img alt="06" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/06.png"></p>
+<p>在“虚拟机-&gt;设置-&gt;选项-&gt;高级”中勾选”通过UEFI“选项；</p>
+<p>注意：安装映像使用 systemd-boot 在 UEFI 模式下引导，使用 syslinux 在 BIOS 模式下引导。</p>
+<blockquote>
+<p><strong>systemd-boot</strong> (以前被称为<strong>gummiboot</strong>) 是可以执行 EFI 镜像文件的简单 UEFI 启动管理器。启动的内容可以通过一个配置(glob)或者屏幕菜单选择。Arch 默认安装的 <a href="https://www.archlinux.org/packages/?name=systemd" target="_blank" rel="noopener">systemd</a> 提供了这个功能。</p>
+</blockquote>
+<h4 id="2-1-3-启动到-Live-环境："><a href="#2-1-3-启动到-Live-环境：" class="headerlink" title="2.1.3 启动到 Live 环境："></a>2.1.3 启动到 Live 环境：</h4><p>在vmware开启刚刚创建的虚拟机</p>
+<p><img alt="07" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/07.png"></p>
+<p>使用EFI引导时的启动界面如上图，选择第一项启动。</p>
+<p>以 root 身份登录进一个虚拟控制台，默认的 Shell 是 Zsh</p>
+<p><img alt="image-20201011165951263" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011165951263.png"></p>
+<h4 id="2-1-4-验证启动模式"><a href="#2-1-4-验证启动模式" class="headerlink" title="2.1.4 验证启动模式"></a>2.1.4 验证启动模式</h4><p>ls /sys/firmware/efi/efivars</p>
+<p><img alt="image-20201011170537003" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011170537003.png"></p>
+<p>如果命令没有错误地显示了目录，则系统以 UEFI 模式启动。<br>如果提示ls: cannot access ‘/sys/firmware/efi/efivars’: No such file or directory表明是以BIOS方式引导。</p>
+<h4 id="2-1-5-连接到因特网"><a href="#2-1-5-连接到因特网" class="headerlink" title="2.1.5 连接到因特网"></a>2.1.5 连接到因特网</h4><p>Arch Linux并不能离线安装，因为需要联网来下载需要的组件，所以首先要连接网络。</p>
+<p>由于Arch Linux在启动后，守护进程dhcpcd已被默认启用以探测有线设备，如果是在真机上安装的话，请确保使用的是有线网络。</p>
+<p>有线网络：dhcpcd</p>
+<p>systemctl restart dhcpcd</p>
+<p>无线网络：iwctl </p>
+<p>device list</p>
+<p>ping命令检查网络连接是否正常：</p>
+<p><img alt="image-20201011172142207" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011172142207.png"></p>
+<h4 id="2-1-6-更新系统时间"><a href="#2-1-6-更新系统时间" class="headerlink" title="2.1.6 更新系统时间"></a>2.1.6 更新系统时间</h4><p>timedatectl set-ntp true</p>
+<p>正常情况下这个命令没有输出，ntp服务会每隔一段时间进行一次网络对时</p>
+<h4 id="2-1-7-建立硬盘分区"><a href="#2-1-7-建立硬盘分区" class="headerlink" title="2.1.7 建立硬盘分区"></a>2.1.7 建立硬盘分区</h4><p>查看当前的分区情况<br>fdisk -l或者lsblk</p>
+<p><img alt="image-20201011172903662" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011172903662.png"></p>
+<p>结果中以 rom，loop 或者 airoot 结束的可以被忽略；</p>
+<p>sda即是我分配给虚拟机的10GB硬盘，因为sda节点下无任何显示，所以此硬盘还没有分区；loop0和sr0可以忽略。</p>
+<p>以下的分区是必须要有的：</p>
+<p>一个根分区（挂载在根目录）/；<br>要在 UEFI 模式中启动，还需要一个 EFI 系统分区。</p>
+<p>对这10GB的硬盘进行分区，能够创建分区的命令很多，如fdisk，parted，cfdisk等</p>
+<p>前面设置的是EFI引导，因此需要在此处需分一个EFI分区（EFI分区推荐大小为512MB）。使用cfdisk分区命令后进入分区界面：</p>
+<p><img alt="image-20201011174048189" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011174048189.png"></p>
+<p>选择gpt分区表，进入之后，划分3个必要分区，分别为根分区，EFI系统分区，Swap分区。</p>
+<p><img alt="image-20201011202355279" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011202355279.png"></p>
+<p><img alt="image-20201011202446726" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011202446726.png"></p>
+<p><img alt="image-20201011202903372" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011202903372.png"></p>
+<p>分区好之后，选择write生效；输入yes，选择exit即可退出。</p>
+<p>再次使用lsblk查看一下：</p>
+<p><img alt="image-20201011202944109" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011202944109.png"></p>
+<h4 id="2-1-8-格式化分区"><a href="#2-1-8-格式化分区" class="headerlink" title="2.1.8 格式化分区"></a>2.1.8 格式化分区</h4><p>分区完成后，需要对分区做格式化处理，由于这里使用了EFI分区，因为EFI分区需要FAT32文件格式，所以需要将其格式化为FAT32格式；根分区格式化为ext4格式；设置并开启Swap分区；</p>
+<p>mkfs.fat -F32 /dev/sda1<br>mkfs.ext4 /dev/sda2</p>
+<p>初始化交换分区：<br>mkswap /dev/sda3 -L Swap<br>swapon /dev/sda3</p>
+<h4 id="2-1-9-挂载分区"><a href="#2-1-9-挂载分区" class="headerlink" title="2.1.9 挂载分区"></a>2.1.9 挂载分区</h4><p>格式话完成后，需要将分区挂载到 /mnt ，先挂载根分区（此例为/dev/sda2）；然后使用 mkdir创建其他剩余的挂载点（比如 /mnt/efi）并挂载其相应的分区，再挂载EFI分区（这里是/dev/sda1），<br>挂载EFI分区时，需要在/mnt上先创建 boot/EFI 目录，然后将EFI分区挂载到/mnt/boot/EFI上；Sawp分区不需要挂载；</p>
+<p>mount /dev/sdaX /mnt  （sdaX改为自己的根分区 ）<br>mkdir -p /mnt/boot/EFI<br>mount /dev/sda1 /mnt/boot/EFI</p>
+<p><img alt="image-20201011204425716" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011204425716.png"></p>
+<h3 id="2-2-安装"><a href="#2-2-安装" class="headerlink" title="2.2 安装"></a>2.2 安装</h3><h4 id="2-2-1-选择镜像"><a href="#2-2-1-选择镜像" class="headerlink" title="2.2.1 选择镜像"></a>2.2.1 选择镜像</h4><p>文件 /etc/pacman.d/mirrorlist 定义了软件包会从哪个镜像源下载；尽量选择国内的镜像源，否则，因为国内网络环境的关系，选择其他国家或地区的镜像源，安装时可能很慢或失败。</p>
+<p>reflector 会通过选择最近一个小时已同步的 HTTPS 镜像并按下载速率对其进行排序来更新镜像列表。在列表中越前的镜像在下载软件包时有越高的优先权。</p>
+<p><img alt="image-20201011214725734" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011214725734.png"></p>
+<h4 id="2-2-2-安装必须的软件包"><a href="#2-2-2-安装必须的软件包" class="headerlink" title="2.2.2 安装必须的软件包"></a>2.2.2 安装必须的软件包</h4><p>使用 pacstrap 脚本，安装 base 软件包和 Linux 内核以及常规硬件的固件：<br>pacstrap /mnt base linux linux-firmware</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>可以将 <a href="https://www.archlinux.org/packages/?name=linux" target="_blank" rel="noopener">linux</a> 替换为 <a href="https://wiki.archlinux.org/index.php/Kernel" target="_blank" rel="noopener">kernel</a> 页面中介绍的内核软件包。</li>
+<li>在虚拟机或容器中安装时，可以不安装固件软件包。</li>
+</ul>
+<p><a href="https://www.archlinux.org/packages/?name=base" target="_blank" rel="noopener">base</a> 软件包并没有包含 Live 环境中的全部程序。因此要获得一个功能齐全的基本系统，可能需要安装其他软件包。特别要考虑安装：</p>
+<ul>
+<li>管理所用<a href="https://wiki.archlinux.org/index.php/File_systems" target="_blank" rel="noopener">文件系统</a>的用户工具；</li>
+<li>访问 <a href="https://wiki.archlinux.org/index.php/RAID" target="_blank" rel="noopener">RAID</a> 或 <a href="https://wiki.archlinux.org/index.php/LVM" target="_blank" rel="noopener">LVM</a> 分区的工具；</li>
+<li>未包含在 <a href="https://www.archlinux.org/packages/?name=linux-firmware" target="_blank" rel="noopener">linux-firmware</a> 中的额外固件；</li>
+<li><a href="https://wiki.archlinux.org/index.php/Networking" target="_blank" rel="noopener">联网</a> 所需要的程序；</li>
+<li><a href="https://wiki.archlinux.org/index.php/Text_editor" target="_blank" rel="noopener">文本编辑器</a>；</li>
+<li>访问 <a href="https://wiki.archlinux.org/index.php/Man" target="_blank" rel="noopener">man</a> 和 <a href="https://wiki.archlinux.org/index.php/Info" target="_blank" rel="noopener">info</a> 页面的工具：<a href="https://www.archlinux.org/packages/?name=man-db" target="_blank" rel="noopener">man-db</a>, <a href="https://www.archlinux.org/packages/?name=man-pages" target="_blank" rel="noopener">man-pages</a> 和 <a href="https://www.archlinux.org/packages/?name=texinfo" target="_blank" rel="noopener">texinfo</a>。</li>
+</ul>
+<p>pacstrap /mnt base linux linux-firmware dhcpcd vim man-db man-pages texinfo lvm2 xfsprogs</p>
+<h3 id="2-3-配置系统"><a href="#2-3-配置系统" class="headerlink" title="2.3 配置系统"></a>2.3 配置系统</h3><h4 id="2-3-1-Fstab"><a href="#2-3-1-Fstab" class="headerlink" title="2.3.1 Fstab"></a>2.3.1 Fstab</h4><p>用以下命令生成 fstab 文件 (用 -U 或 -L 选项设置UUID 或卷标)：<br>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab<br>强烈建议在执行完以上命令后，后检查一下生成的 /mnt/etc/fstab 文件是否正确：<br>nano /mnt/etc/fstab<br>如果生成的fstab文件正确，会看到之前分的分区的信息。</p>
+<p><img alt="image-20201011220655081" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011220655081.png"></p>
+<h4 id="2-3-2-Chroot"><a href="#2-3-2-Chroot" class="headerlink" title="2.3.2 Chroot"></a>2.3.2 Chroot</h4><p>Chroot意为Change root，相当于把操纵权交给我们新安装（或已经存在）的Linux系统，执行了这步以后，我们的操作都相当于在磁盘上新装的系统中进行。<br>Change root 到新安装的系统：<br>arch-chroot /mnt<br>chroot之后，当前目录就变成为 / 。此步会自动进行创建初始的ramdisk环境。</p>
+<h4 id="2-3-3-时区"><a href="#2-3-3-时区" class="headerlink" title="2.3.3 时区"></a>2.3.3 时区</h4><p>设置时区：</p>
+<p># ln -sf /usr/share/zoneinfo/Region/City /etc/localtime<br>例如：<br>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime<br>设置时间标准为UTC，并调整时间漂移：<br>hwclock –systohc –utc<br>运行 hwclock以生成 /etc/adjtime：<br>hwclock –systohc</p>
+<p><img alt="image-20201011221523214" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011221523214.png"></p>
+<p><img alt="image-20201011221529701" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011221529701.png"></p>
+<h4 id="2-3-4-本地化"><a href="#2-3-4-本地化" class="headerlink" title="2.3.4 本地化"></a>2.3.4 本地化</h4><p>本地化的程序与库若要本地化文本，都依赖 Locale，后者明确规定地域、货币、时区日期的格式、字符排列方式和其他本地化标准。<br>需在这两个文件设置：locale.gen 与 locale.conf。<br>编辑/etc/locale.gen 然后移除需要的地区前的注释符号 #。<br>vim /etc/locale.gen<br>然后找到下面3项，去掉每项前面的#即可：<br>en_US.UTF-8 UTF-8<br>zh_CN.UTF-8 UTF-8<br>zh_TW.UTF-8 UTF-8<br>接着执行 locale-gen 以生成 locale 信息：<br>locale-gen<br>并列出所有启用的Locale：<br>locale -a<br>然后创建 locale.conf 文件，并编辑设定 LANG 变量，比如：<br>vim /etc/locale.conf<br>在文件的第一行加入以下内容：<br>LANG=en_US.UTF-8<br>保存并退出。</p>
+<p><img alt="image-20201011224203465" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011224203465.png"></p>
+<p><img alt="image-20201011225421731" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011225421731.png"></p>
+<p>/etc/locale.conf用来配置整个系统所使用的Loacle，而这也可以由用户通过用户自己的 ~/.config/locale.conf （~表示当前用户的Home目录）来覆盖整个系统的Locale配置。</p>
+<p><strong>警告： 不推荐在此设置任何中文 locale，会导致 tty 乱码。</strong></p>
+<h4 id="2-3-5-网络配置"><a href="#2-3-5-网络配置" class="headerlink" title="2.3.5 网络配置"></a>2.3.5 网络配置</h4><p>创建 hostname 文件:<br>vim /etc/hostname<br>在文件的第一行输入你自己设定的一个myhostname<br>保存并退出。<br>编辑/etc/hosts文件：<br>127.0.0.1    localhost<br>::1        localhost<br>127.0.1.1    myhostname.localdomain    myhostname<br>将myhostname替换成你自己设定的主机名<br>我这里是arch-Linux.</p>
+<p><img alt="image-20201011225947669" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011225947669.png"></p>
+<p><img alt="image-20201011225956653" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011225956653.png"></p>
+<p>对新安装的系统，需要再次<a href="https://wiki.archlinux.org/index.php/Network_configuration_(简体中文)" target="_blank" rel="noopener">设置网络</a>，请注意，目前的 <a href="https://www.archlinux.org/packages/?name=base" target="_blank" rel="noopener">base</a> 不含有任何网络管理工具，要安装希望使用的 <a href="https://wiki.archlinux.org/index.php/Network_management" target="_blank" rel="noopener">网络管理</a> 软件。</p>
+<p>利用包管理工具<code>pacman</code>，大部分情况下，一行命令就可以搞定包与依赖的问题。</p>
+<p>安装包的命令格式为<code>pacman -S 包名</code>，<code>pacman</code>会自动检查这个包所需要的其他包（即为依赖）并一起装上。</p>
+<p>pacman -S dhcpcd</p>
+<p>systemctl enable dhcpcd.service</p>
+<h4 id="2-3-6-Root-密码"><a href="#2-3-6-Root-密码" class="headerlink" title="2.3.6 Root 密码"></a>2.3.6 Root 密码</h4><p>设置 Root 密码：<br>passwd<br>输入两次密码（Linux不显示密码）</p>
+<p><img alt="image-20201011230845907" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011230845907.png"></p>
+<h4 id="2-3-7-安装引导程序"><a href="#2-3-7-安装引导程序" class="headerlink" title="2.3.7 安装引导程序"></a>2.3.7 安装引导程序</h4><p>需要安装 Linux 引导加载程序,才能在安装后启动系统，可以使用的的引导程序已在 启动加载器中列出，请选择一个安装并配置它，GRUB 是最常见的选择。<br>安装grub：<br>　　grub是一个启动引导器，同时支持EFI和BIOS方式的启动。若使用的UEFI方式引导系统，则还需要安装efibootmgr，如果是双系统的话，还需要安装os-prober，且如果使用Intel CPU的话，则需要安装 intel-ucode 并启用因特尔微码更新。<br>此处使用的是虚拟机和UEFI引导方式，因此只需要安装grub和efibootmgr：<br>pacman -S grub efibootmgr</p>
+<p>然后，还需要将其安装到EFI分区当中：<br>grub-install –recheck /dev/sda<br>最后还需要生成一个grub的配置文件：<br>grub-mkconfig -o /boot/grub/grub.cfg</p>
+<p><img alt="image-20201011231448410" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011231448410.png"></p>
+<p><img alt="image-20201011231519667" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011231519667.png"></p>
+<p><strong>警告： 这是安装的最后但也至关重要的一步，请按上述指引正确安装好引导加载程序后再重新启动。否则将无法正常进入系统。</strong></p>
+<h4 id="2-3-8-重启"><a href="#2-3-8-重启" class="headerlink" title="2.3.8 重启"></a>2.3.8 重启</h4><p>输入 exit 或按 Ctrl+d 退出 chroot 环境<br>可选用 umount -R /mnt 手动卸载被挂载的分区：这有助于发现任何「繁忙」的分区，并通过 fuser 查找原因。<br>最后，通过执行 reboot 重启系统，systemd 将自动卸载仍然挂载的任何分区。不要忘记移除安装介质，然后使用 root 帐户登录到新系统。</p>
+<p>exit<br>umount -R /mnt<br>reboot</p>
+<p><img alt="image-20201011231820778" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011231820778.png"></p>
+<p><img alt="image-20201011231834090" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011231834090.png"></p>
+<p>重启系统之后，会出现如上启动界面<br>选择第一个就进入到我们新安装的Arch Linux了，如下图：</p>
+<p><img alt="image-20201011231901836" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011231901836.png"></p>
+<p>使用 root 帐户，再输入之前设置的密码登录到新系统；Arch Linux的基础系统安装完成了。<br>由于还没有安装桌面，所以登陆后处在命令行模式。</p>
+<p><img alt="image-20201011231926660" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201011231926660.png"></p>
+<h3 id="2-4-安装后的配置与图形界面"><a href="#2-4-安装后的配置与图形界面" class="headerlink" title="2.4 安装后的配置与图形界面"></a>2.4 安装后的配置与图形界面</h3><h4 id="2-4-1连接网络"><a href="#2-4-1连接网络" class="headerlink" title="2.4.1连接网络"></a>2.4.1连接网络</h4><p>dhcpcd</p>
+<p>同样可以使用<code>ping</code>命令来测试是否正常联网。</p>
+<p><img alt="image-20201012005903150" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012005903150.png"></p>
+<h4 id="2-4-2-新建用户"><a href="#2-4-2-新建用户" class="headerlink" title="2.4.2 新建用户"></a>2.4.2 新建用户</h4><p>root的权限过高，日常使用root用户是不安全的。Linux为我们提供了强大的用户与组的权限管理，提高了整个系统的安全性。这里我们就来新建一个用户。执行以下命令来创建一个名为mumiao的用户:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -G wheel mumiao</span><br></pre></td></tr></table></figure>
+
+<p><code>-m</code>：在创建时同时在<code>/home</code>目录下创建一个与用户名同名的文件夹，这个目录就是你的<strong>家目录</strong>啦！家目录有一个别名是<code>~</code>，你可以在任何地方使用<code>~</code>来代替家目录路径。</p>
+<p><code>-G wheel</code>：<code>-G</code>代表把用户加入一个组.</p>
+<p>为新用户设置一个密码，执行如下命令:</p>
+<p>passwd mumiao</p>
+<p><img alt="image-20201012013012718" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012013012718.png"></p>
+<h4 id="2-4-3-配置sudo"><a href="#2-4-3-配置sudo" class="headerlink" title="2.4.3 配置sudo"></a>2.4.3 配置sudo</h4><p>现在已经创建好了一个新的用户，以后可使用这个用户来登录，那么如果需要执行一些只有<code>root</code>用户才能执行的命令（例如修改系统文件、安装软件包）时怎么办？</p>
+<p>通过 su 命令来切换到<code>root</code>用户执行命令后再通过 exit 退回普通用户;</p>
+<p>另一个更快捷的办法，使用<code>sudo</code>，我们只要在需要<code>root</code>权限执行的命令之前加上<code>sudo</code>就可以。</p>
+<p><code>sudo</code>本身也是一个软件包，所以我们需要通过<code>pacman</code>来安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S sudo</span><br></pre></td></tr></table></figure>
+
+<p><img alt="image-20201012020539849" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012020539849.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">visudo</span><br></pre></td></tr></table></figure>
+
+<p>找到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># %wheel ALL=(ALL)ALL</span><br></pre></td></tr></table></figure>
+
+<p>这行，去掉之前的<code>#</code>注释符，保存并退出.</p>
+<p>这里的<code>%wheel</code>就是代表<code>wheel</code>组，意味着<code>wheel</code>组中的所有用户都可以使用<code>sudo</code>命令。</p>
+<p><img alt="image-20201012020755083" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012020755083.png"></p>
+<h4 id="2-4-4-安装Xorg"><a href="#2-4-4-安装Xorg" class="headerlink" title="2.4.4 安装Xorg"></a>2.4.4 安装Xorg</h4><p><code>Xorg</code>是<code>Linux</code>下的一个著名的开源图形服务，我们的桌面环境需要<code>Xorg</code>的支持。</p>
+<p>执行如下命令安装<code>Xorg</code>及相关组件：</p>
+<p>sudo pacman -S xorg</p>
+<p><img alt="image-20201012022051709" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012022051709.png"></p>
+<h4 id="2-4-5-安装桌面环境"><a href="#2-4-5-安装桌面环境" class="headerlink" title="2.4.5 安装桌面环境"></a>2.4.5 安装桌面环境</h4><p><code>Linux</code>下有很多著名的桌面环境如<code>Xfce</code>、<code>KDE(Plasma)</code>、<code>Gnome</code>、<code>Unity</code>、<code>Deepin</code>等等</p>
+<p>我选择的是<code>Xfce</code>和非常流行的<code>KDE(Plasma)</code></p>
+<p><img alt="image-20201012022505849" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012022505849.png"></p>
+<h4 id="2-4-6-安装桌面管理器"><a href="#2-4-6-安装桌面管理器" class="headerlink" title="2.4.6 安装桌面管理器"></a>2.4.6 安装桌面管理器</h4><p>安装好了桌面环境包以后，我们需要安装一个图形化的桌面管理器来帮助我们登录并且选择我们使用的桌面环境，这里我选择使用<code>sddm</code></p>
+<p>安装sddm:</p>
+<p>pacman -S sddm</p>
+<p><img alt="image-20201012023711692" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012023711692.png"></p>
+<p>设置开机启动sddm服务; Arch下用于管理系统服务的命令systemctl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start   服务名 （启动一项服务）</span><br><span class="line">systemctl stop    服务名 （停止一项服务）</span><br><span class="line">systemctl enable  服务名 （开机启动一项服务）</span><br><span class="line">systemctl disable 服务名 （取消开机启动一项服务）</span><br></pre></td></tr></table></figure>
+
+<p>systemctl enable sddm</p>
+<h4 id="2-4-7-再次配置网络"><a href="#2-4-7-再次配置网络" class="headerlink" title="2.4.7 再次配置网络"></a>2.4.7 再次配置网络</h4><p>桌面环境使用的是<code>NetworkManager</code>这个网络服务,所以需要禁用自带的<code>netctl</code>并启用<code>NetworkManager</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl disable dhcpcd</span><br><span class="line">sudo systemctl enable NetworkManager</span><br></pre></td></tr></table></figure>
+
+<p><img alt="image-20201012024838402" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012024838402.png"></p>
+<p>重启</p>
+<p><img alt="image-20201012025145446" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012025145446.png"></p>
+<p><img alt="image-20201012025448860" data-src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/image-20201012025448860.png"></p>
+<h2 id="三、安装过程中的一些总结"><a href="#三、安装过程中的一些总结" class="headerlink" title="三、安装过程中的一些总结"></a>三、安装过程中的一些总结</h2><h3 id="3-1-usr路径"><a href="#3-1-usr路径" class="headerlink" title="3.1 /usr路径"></a>3.1 /usr路径</h3><p><code>/usr</code>路径: <code>/usr</code>路径也是我们比较常用的一个路径,这里的<code>usr</code>最早是<code>user</code>的缩写,但是目前我们认为它是<code>User System Resources</code>的缩写,因为其早期是作为<code>unix</code>系统中用户家目录存在的,相当于现在的<code>/home</code>目录,但如今这个路径的作用已经变更,其中通常是用户级的软件等,多是一些静态的,可多用户共享的文件。</p>
+<h3 id="3-2-验证启动模式"><a href="#3-2-验证启动模式" class="headerlink" title="3.2 验证启动模式"></a>3.2 验证启动模式</h3><p>我们使用<code>/sys/firmware/efi/efivars</code>文件是否存在的方式来判断系统是否以<code>UEFI</code>模式启动,不同的启动模式,在后面的分区以及<code>grub</code>安装过程中会有不同.</p>
+<p>我们常见的启动模式为<code>UEFI</code>和<code>Legacy</code>,他们都是<code>BIOS(Basic Input Output System,是个人电脑启动时加载的第一个软件)</code>,只是新和旧的两种不同的<code>BIOS</code>而已,当新的<code>BIOS</code>架构<code>UEFI</code>出现时,旧的<code>BIOS</code>便被称为<code>Legacy</code><br> 两个模式不止启动方式不同,对应的磁盘格式也不同:<code>UEFI</code>对应<code>GPT</code>格式,而<code>Legacy</code>对应<code>MBR</code>格式.混淆格式,系统将不能正常启动,我们在安装系统时,有时就需要使用分区工具转化磁盘格式为启动方式对应的格式。</p>
+<h3 id="3-3-连接到因特网"><a href="#3-3-连接到因特网" class="headerlink" title="3.3 连接到因特网"></a>3.3 连接到因特网</h3><blockquote>
+<p><strong>守护进程(<code>daemon</code>)</strong>:  在一个多任务的计算机操作系统中，<strong>守护进程</strong>是一种在后台执行的计算机程序。此类程序会被以进程的形式初始化。守护进程程序的名称通常以字母“d”结尾,在我们系统启动时,很多守护进程便一起启动,为我们做好开机前的配置.</p>
+</blockquote>
+<blockquote>
+<p><strong>dhcpcd</strong>: 全称为<code>dhcp client daemon</code>,用来配置<code>dhcp</code>(动态主机设置协议)服务,我们常见的<code>dhcp</code>的作用是<strong>内部网或网络服务供应商自动分配IP地址给用户</strong>,这就省略了我们手动去配置网络信息(ip,子网掩码,网关等)的步骤,而该进程会在系统启动时帮我们启动<code>dhcp</code>服务,我们在使用过程中,也可手动的调用<code>dhcpcd</code>命令来连接有线网络</p>
+</blockquote>
+<h3 id="3-4-磁盘分区"><a href="#3-4-磁盘分区" class="headerlink" title="3.4 磁盘分区"></a>3.4 磁盘分区</h3><p><strong>磁盘分区</strong> : 磁盘分区的好处有很多,如:</p>
+<ol>
+<li>我们在使用一块磁盘时,不一定只使用一种文件系统,不同分区可以格式化为不同的文件系统;</li>
+<li>分区有利于管理设备,系统一般单独放一个区，这样由于系统区只放系统，其他区不会受到系统盘出现磁盘碎片的性能影响;</li>
+<li>如果一个分区出现逻辑损坏，仅损坏的分区而不是整个硬盘受影响.</li>
+</ol>
+<p><strong>交换分区(swap)</strong> :<code>swap</code>分区是类似于虚拟内存的一个手段,用来解决设备内存不够用的情况,它将磁盘的一部分空间用做存储空间,当系统的内存不够时,将内存中一部分暂时不用的进程数据存档到磁盘中,将内存腾出给正在运行的进程使用。<br> 在以前的系统分区方案中,交换空间是必须的两个分区之一(另一个是根分区,但假如我们如果使用<code>uefi</code>的启动方式,我们还需要一个<code>efi</code>分区),而现在我们可以根据自己的系统内存够不够用来决定是否添加交换分区。</p>
+<p><strong>/dev目录</strong>: 该目录是<code>linux</code>的设备目录,包含了Linux系统中使用的所有外部设备,常见的有<br> <strong>/dev/hd*</strong> : IDE设备<br> <strong>/dev/sd*</strong> : SCSI设备<br> <strong>/dev/null</strong> : 空设备,它丢弃一切写入其中的数据（但报告写入操作成功）,我们通常会把不需要的数据写入其中以丢弃<br> <strong>/dev/tty*</strong> : 虚拟终端</p>
+<h3 id="3-5-挂载"><a href="#3-5-挂载" class="headerlink" title="3.5 挂载"></a>3.5 挂载</h3><p>挂载分区是将刚才规划好的磁盘挂载到当前系统(启动盘中的安装程序)的<code>/mnt</code>目录中,借助当前系统中的各种工具来对磁盘做进一步的管理</p>
+<ul>
+<li><strong>挂载</strong> : 在<code>linux</code>上,要使用一个文件,必须对包含它的文件系统进行挂载的操作,在计算机启动时,系统已经自动的挂载了我们设定好的文件系统,但当我们接入新的文件设备,如插入一个U盘时,我们就得手动进行挂载操作(很多图形化界面都带有自动挂载的功能,不需要手动挂载)</li>
+<li><strong>/mnt</strong> :  <code>mount</code>的简写,专门用来作为挂载点</li>
+</ul>
+<p><strong>引导程序</strong> : 在系统启动时,最先启动的是<code>BIOS</code>,它寻找到我们的可启动设备之后,就将控制权交给<strong>引导程序</strong>,引导程序帮我们<strong>查找并打开设备中的操作系统</strong>,<code>grub</code>是我们<code>linux</code>中最常用的引导程序；<br> 在最开始的时候,引导程序位于我们硬盘的主引导记录分区(<code>MBR</code>),随着后面引导程序的越来越复杂,<code>MBP</code>中已经存储不下,如今的系统将<code>MBR</code>中的引导程序作为第一段引导程序,该引导会去找到并启动第二段引导程序,也就是我们常见的<code>grub</code>等引导程序。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>IeMLvYuooom</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://mumiaozxz.github.io/2021-02-12/install-arch-linux/" title="Install Arch Linux">http://mumiaozxz.github.io/2021-02-12/install-arch-linux/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Arch-Linux/" rel="tag"><i class="fa fa-tag"></i> Arch_Linux</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020-02-02/day0/" rel="next" title="Day0">
+                  <i class="fa fa-chevron-left"></i> Day0
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MTk2MC8yODQ0MQ=="></div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Arch-Linux-安装过程"><span class="nav-text">Arch Linux 安装过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Arch-Linux-简单介绍"><span class="nav-text">一、Arch Linux 简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Arch-Linux-安装过程"><span class="nav-text">二、Arch Linux 安装过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-安装前的准备"><span class="nav-text">2.1 安装前的准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-下载镜像："><span class="nav-text">2.1.1 下载镜像：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-创建虚拟机："><span class="nav-text">2.1.2 创建虚拟机：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-启动到-Live-环境："><span class="nav-text">2.1.3 启动到 Live 环境：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-验证启动模式"><span class="nav-text">2.1.4 验证启动模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-5-连接到因特网"><span class="nav-text">2.1.5 连接到因特网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-6-更新系统时间"><span class="nav-text">2.1.6 更新系统时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-7-建立硬盘分区"><span class="nav-text">2.1.7 建立硬盘分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-8-格式化分区"><span class="nav-text">2.1.8 格式化分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-9-挂载分区"><span class="nav-text">2.1.9 挂载分区</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-安装"><span class="nav-text">2.2 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-选择镜像"><span class="nav-text">2.2.1 选择镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-安装必须的软件包"><span class="nav-text">2.2.2 安装必须的软件包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-配置系统"><span class="nav-text">2.3 配置系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-Fstab"><span class="nav-text">2.3.1 Fstab</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-Chroot"><span class="nav-text">2.3.2 Chroot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-时区"><span class="nav-text">2.3.3 时区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-4-本地化"><span class="nav-text">2.3.4 本地化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-5-网络配置"><span class="nav-text">2.3.5 网络配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-6-Root-密码"><span class="nav-text">2.3.6 Root 密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-7-安装引导程序"><span class="nav-text">2.3.7 安装引导程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-8-重启"><span class="nav-text">2.3.8 重启</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-安装后的配置与图形界面"><span class="nav-text">2.4 安装后的配置与图形界面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-1连接网络"><span class="nav-text">2.4.1连接网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-2-新建用户"><span class="nav-text">2.4.2 新建用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-3-配置sudo"><span class="nav-text">2.4.3 配置sudo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-4-安装Xorg"><span class="nav-text">2.4.4 安装Xorg</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-5-安装桌面环境"><span class="nav-text">2.4.5 安装桌面环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-6-安装桌面管理器"><span class="nav-text">2.4.6 安装桌面管理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-7-再次配置网络"><span class="nav-text">2.4.7 再次配置网络</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、安装过程中的一些总结"><span class="nav-text">三、安装过程中的一些总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-usr路径"><span class="nav-text">3.1 /usr路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-验证启动模式"><span class="nav-text">3.2 验证启动模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-连接到因特网"><span class="nav-text">3.3 连接到因特网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-磁盘分区"><span class="nav-text">3.4 磁盘分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-挂载"><span class="nav-text">3.5 挂载</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="https://markdownoss1.oss-cn-beijing.aliyuncs.com/img/wallhaven-ox7357.jpg"
+      alt="IeMLvYuooom">
+  <p class="site-author-name" itemprop="name">IeMLvYuooom</p>
+  <div class="site-description" itemprop="description">宁无慈悲也无情</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/mumiaozxz" title="GitHub &rarr; https://github.com/mumiaozxz" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:mumiao1998@gmail.com" title="E-Mail &rarr; mailto:mumiao1998@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-fas fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">IeMLvYuooom</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">12k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.0</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fab868a8ba81d18" async="async"></script>
+  </div>
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      总访客量
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+      人
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      总访问量
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
